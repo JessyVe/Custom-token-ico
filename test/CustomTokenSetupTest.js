@@ -1,18 +1,24 @@
+/**
+ * This test class verifies the basic setup of the custom token. 
+ * 
+ * accounts are provide by the locally running Ganache instance (configured in truffle-config.js)
+ * accounts[0] => contains the initial coin supply
+ */
 
 const CustomToken = artifacts.require("CustomToken");
 
-const initialCoinSupply = 100;
-const tokenName = 'CustomToken';
-const tokenSymbol = 'CT';
+const INITIAL_COIN_SUPPLY = 100;
+const TOKEN_NAME = 'CustomToken';
+const TOKEN_SYMBOL = 'CT';
 
-contract('CustomToken', function(accounts){ // accounts from ganache
+contract('CustomToken', function(accounts){ 
 
     it('initializes the contract with the specified name', function() {
         return CustomToken.deployed().then(function(instance){
             tokenInstance = instance;
             return tokenInstance.name();        
         }).then(function(name){
-            assert.equal(tokenName, name, 'initializes the contract with the specified name')
+            assert.equal(TOKEN_NAME, name, 'initializes the contract with the specified name')
         });
     });   
 
@@ -21,7 +27,7 @@ contract('CustomToken', function(accounts){ // accounts from ganache
             tokenInstance = instance;
             return tokenInstance.symbol();        
         }).then(function(symbol){
-            assert.equal(tokenSymbol, symbol, 'initializes the contract with the specified symbol')
+            assert.equal(symbol, TOKEN_SYMBOL, 'initializes the contract with the specified symbol')
         });
     });   
 
@@ -30,7 +36,7 @@ contract('CustomToken', function(accounts){ // accounts from ganache
             tokenInstance = instance;
             return tokenInstance.totalSupply();
         }).then(function(totalSupply){
-            assert.equal(totalSupply.toNumber(), initialCoinSupply, 'sets the total supply upon deplyoment');
+            assert.equal(totalSupply.toNumber(), INITIAL_COIN_SUPPLY, 'sets the total supply upon deplyoment');
         });
     });
 
@@ -39,7 +45,7 @@ contract('CustomToken', function(accounts){ // accounts from ganache
             tokenInstance = instance;
             return tokenInstance.balanceOf(accounts[0]);        
         }).then(function(startingBalance){
-            assert.equal(startingBalance.toNumber(), initialCoinSupply, 'allocates the initial coin supply to the first account')
+            assert.equal(startingBalance.toNumber(), INITIAL_COIN_SUPPLY, 'allocates the initial coin supply to the first account')
         });
     });  
     
@@ -48,7 +54,7 @@ contract('CustomToken', function(accounts){ // accounts from ganache
             tokenInstance = instance;
             return tokenInstance.balanceOf(accounts[0]);        
         }).then(function(startingBalance){
-            assert.equal(startingBalance.toNumber(), initialCoinSupply, 'allocates the initial coin supply to the first account')
+            assert.equal(startingBalance.toNumber(), INITIAL_COIN_SUPPLY, 'allocates the initial coin supply to the first account')
         });
     });
 })
