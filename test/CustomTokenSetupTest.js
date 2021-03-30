@@ -57,4 +57,4 @@ contract('CustomToken', function(accounts){
             assert.equal(startingBalance.toNumber(), INITIAL_COIN_SUPPLY, 'allocates the initial coin supply to the first account')
         });
     });
-})
+});

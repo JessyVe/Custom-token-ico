@@ -7,4 +7,13 @@ This Repository is part of an educational course of University of Applied Scienc
 Bachelor program: Mobile Software Development (FH JOANNEUM)
 
 ## Introduction
-This repository holds the basic implementation of a custom ERC20 Token. This project was implemented with [Truffel](https://www.trufflesuite.com/)
+This repository holds the basic implementation of a custom ERC20 Token. The project was implemented with [Truffel](https://www.trufflesuite.com/).
+
+**Execute tests**
+```
+truffle test
+```
+**Deploy**
+```
+truffle migrate
+```
