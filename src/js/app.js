@@ -1,5 +1,7 @@
 console.log("App.js loaded");
 
+const ganacheUrl = 'http://localhost:7545';
+
 App = {
     
     loading: false,
@@ -16,8 +18,25 @@ App = {
     tokensSold: -1,
     tokenSupply: -1,
 
-    init: function(){
-        
+
+    toggleContent: function(showLoading, showContent, showError){
+        var loadingScreen = $('#loading-screen').eq(0);
+        var pageContent = $('#page-content').eq(0);
+        var errorScreen = $('#error-screen').eq(0);
+
+        showLoading ? loadingScreen.show() : loadingScreen.hide();   
+        showContent ? pageContent.show() : pageContent.hide();
+        showError ? errorScreen.show() : errorScreen.hide();
+    },
+
+    showError: function(error){       
+        var errorScreenMessage = $('#error-screen-message').eq(0);
+        errorScreenMessage.html(error);
+        App.toggleContent(false, false, true);
+    },
+
+    init: function(){    
+        App.toggleContent(true, false, false);    
         return App.initWeb3();
     },
 
@@ -28,8 +47,7 @@ App = {
             web3 = new Web3(web3.currentProvider)
         } else {
             // specify default instance if no web3 instance is provided
-            // Ganache configuration
-            App.web3Provider = Web3.providers.HttpProvider('http://localhost:7545');
+            App.web3Provider = Web3.providers.HttpProvider(ganacheUrl);
             web3 = new Web3(App.web3Provider)
         }
         return App.initTruffleContract();
@@ -40,16 +58,20 @@ App = {
             App.contracts.CustomTokenIco = TruffleContract(customTokenIco);
             App.contracts.CustomTokenIco.setProvider(App.web3Provider);
             App.contracts.CustomTokenIco.deployed().then(function(customTokenIco){
-                console.log("ICO contract address: ", customTokenIco.address);
+                console.log('ICO contract address: ', customTokenIco.address);
             });
-        }).done(function(){
+        })        
+        .fail(function() { App.showError('Did not find contract defintion of "CustomTokenIco".'); })        
+        .done(function(){
             $.getJSON("CustomToken.json", function(customToken){
                 App.contracts.CustomToken = TruffleContract(customToken);
                 App.contracts.CustomToken.setProvider(App.web3Provider);
                 App.contracts.CustomToken.deployed().then(function(customToken){
-                    console.log("Token contract address: ", customToken.address);
+                    console.log('Token contract address: ', customToken.address);
                 });               
-        }).done(function(){
+        })
+        .fail(function() { App.showError('Did not find contract defintion of "CustomToken".'); })   
+        .done(function(){
             App.listenForSellEvent();
             return App.render();
         });
@@ -61,13 +83,8 @@ App = {
         if(App.loading){
             return;
         }
-        App.loading = true;
-
-        var loadingScreen = $('#loading-screen').eq(0);
-        var pageContent = $('#page-content').eq(0);
-
-        loadingScreen.show();   
-        pageContent.hide();
+        App.loading = true;       
+        App.toggleContent(true, false, false);
 
         web3.eth.getCoinbase(function(err, account){
         if(err === null){
@@ -104,8 +121,7 @@ App = {
                 document.getElementById('user-account-balance').textContent = App.userAccountBalance;
             }).then(function(){
                 App.loading = false;
-                loadingScreen.hide();
-                pageContent.show();  
+                App.toggleContent(false, true, false); 
             });
         });
     },
@@ -130,11 +146,8 @@ App = {
     },
 
     buyTokens: function(){
-        var loadingScreen = $('#loading-screen').eq(0);
-        var pageContent = $('#page-content').eq(0);
 
-        loadingScreen.show();   
-        pageContent.hide();
+        App.toggleContent(true, false, false);
 
         const tokenAmount = $('#token-amount').eq(0).val();
         console.log(tokenAmount);
