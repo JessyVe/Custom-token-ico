@@ -1,0 +1,7 @@
+{
+    "_comment" : "lite-server uses BrowserSync, and allows for configuration overrides via a local bs-config.json or bs-config.js file in your project",
+    "server" : {
+        "_comment" : "Expose frontend code in 'src' and contract json files",
+        "baseDir" : ["./src", "./build/contracts"]
+    }
+}

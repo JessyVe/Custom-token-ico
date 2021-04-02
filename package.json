@@ -1,0 +1,19 @@
+{
+    "name": "custom-erc20-token-ico",
+    "version": "1.0.0",
+    "description": "ICO for Custom ERC20 Token (build with Solidity)",
+    "main": "truffle.js",
+    "directories": {
+        "test": "test"
+    },
+    "author": "Jessica Veit",
+    "license": "ISC",
+
+    "devDependencies": {
+        "lite-server": "^2.6.1"
+    }, 
+    "scripts": { 
+        "_comment": "executed with 'npm run dev'",
+        "dev" : "lite-server"
+    }
+}
