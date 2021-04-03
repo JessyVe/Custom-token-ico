@@ -1,13 +1,10 @@
-console.log("App.js loaded");
-
 const ganacheUrl = 'http://localhost:7545';
 
 App = {
-    
-    loading: false,
-
+   
     web3Provider: null, 
     contracts: {},
+    loading: false,
 
     // user data
     userAccountAddress: '0x0',
@@ -17,7 +14,6 @@ App = {
     tokenPrice: 1000000000000000,
     tokensSold: -1,
     tokenSupply: -1,
-
 
     toggleContent: function(showLoading, showContent, showError){
         var loadingScreen = $('#loading-screen').eq(0);
@@ -61,7 +57,10 @@ App = {
                 console.log('ICO contract address: ', customTokenIco.address);
             });
         })        
-        .fail(function() { App.showError('Did not find contract defintion of "CustomTokenIco".'); })        
+        .fail(function(error) { 
+            console.log(error);
+            App.showError('Something went wrong! Unable not find contract defintion of "CustomTokenIco".'); 
+        })        
         .done(function(){
             $.getJSON("CustomToken.json", function(customToken){
                 App.contracts.CustomToken = TruffleContract(customToken);
@@ -70,7 +69,10 @@ App = {
                     console.log('Token contract address: ', customToken.address);
                 });               
         })
-        .fail(function() { App.showError('Did not find contract defintion of "CustomToken".'); })   
+        .fail(function(error) { 
+            console.log(error);
+            App.showError('Something went wrong! Unable not find contract defintion of "CustomToken".'); 
+        })   
         .done(function(){
             App.listenForSellEvent();
             return App.render();
@@ -83,6 +85,7 @@ App = {
         if(App.loading){
             return;
         }
+
         App.loading = true;       
         App.toggleContent(true, false, false);
 
@@ -91,7 +94,8 @@ App = {
             App.userAccountAddress = account;
             document.getElementById('user-account-address').textContent = App.userAccountAddress;
             } else {
-                console.log(err);
+                console.log(error);
+                App.showError("An error occrued while querying the user account. Auto-Login failed!");
             }
         })
         
@@ -150,13 +154,13 @@ App = {
         App.toggleContent(true, false, false);
 
         const tokenAmount = $('#token-amount').eq(0).val();
-        console.log(tokenAmount);
 
         App.contracts.CustomTokenIco.deployed().then(function(instance){
             icoInstance = instance; 
             return icoInstance.buyTokens(tokenAmount, { from: App.userAccountAddress, value: (tokenAmount * App.tokenPrice), gas: 500000 });
-        }).then(function(result){
-           console.log('tokens bought', result);           
+        }).catch(function(error){
+            console.log(error);
+            App.showError("An error occrued during the token purchase!");
         });
     }    
 }
