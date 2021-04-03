@@ -102,6 +102,12 @@ Documentations:
 - Communication to a blockchain: [web3](https://www.npmjs.com/package/web3)
 - Interpreting [ABIs](https://docs.soliditylang.org/en/v0.5.3/abi-spec.html): [truffle-contract](https://www.npmjs.com/package/@truffle/contract?activeTab=versions)
 
+<br>
+
+### Run application with lite server
+```
+npm run dev
+```
 
 <br>
 
@@ -112,9 +118,10 @@ Documentations:
 - [Dapp University](https://www.youtube.com/channel/UCY0xL8V6NzzFcwzHCgB8orQ)
 - [Invalid type for argument in function call. Invalid implicit conversion from address to address payable requested](https://ethereum.stackexchange.com/a/65873)
 
-    **Alternatives to selfdestruct-call**
-    - [Selfdestruct is a Bug.](https://blog.b9lab.com/selfdestruct-is-a-bug-9c312d1bb2a5)
-    - [how to disable a contract by changing some internal state which causes all functions to revert?](https://ethereum.stackexchange.com/a/82204)
+
+**Alternatives to selfdestruct-calls in Solidity**
+- [Selfdestruct is a Bug.](https://blog.b9lab.com/selfdestruct-is-a-bug-9c312d1bb2a5)
+- [how to disable a contract by changing some internal state which causes all functions to revert?](https://ethereum.stackexchange.com/a/82204)
 
 **Frontend**
 - [Bootstrap getting started](https://getbootstrap.com/docs/3.4/getting-started/)
