@@ -2,81 +2,79 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
         <title>Custom ERC20 Token ICO</title>
     </head>
-    <body>
-        <div class="container" style="width: 650px;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="text-center">Custom ERC20 Token ICO</h1>
-                    <hr/>
-                    <br/>                    
-                </div>
+    <body class="bg-light">
 
-                <!-- Loading screen -->
-                <div id="loading-screen">
-                    <p class="text-center">Loading...</p>
-                </div>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-info bg-info static-top">
+          <div class="container">            
+            <span class="lead">Powered by <img style="max-width: 10%;" src="https://i.dlpng.com/static/png/5511469-hd-ethereum-logo-remix-ide-free-unlimited-download-2467474-ethereum-logo-transparent-1845_721_preview.png"/></span>
+            <span class="badge badge-warning">You currently have <b><span id="user-account-balance"/></b> Custom Tokens.</span>
+          </div>
+        </nav>
 
-                <!-- Error screen -->
-                <div class="text-center alert alert-warning" id="error-screen" style="display: none;">
-                    <p><strong>Error!</strong> <span id="error-screen-message"></span></p>
-                    <br/>
-                    <button type="button" class="btn" onclick="App.init();">Reload?</button>
-                    <br/>
-                </div>
-
-                <!-- Page Content -->
-                <div id="page-content" class="text-center" style="display: none;">
-                    <p>
-                        Introducing the <b>Custom ERC20 Token</b>
-                        <br/>
-                        The current Token Price is <b><span id="token-price"></span></b> Ether.
-                        <br/>
-                        You currently have <b><span id="user-account-balance"></b></span> Custom Tokens.
-                    </p>
-                    <br/>
-                    <form role="form" onSubmit="App.buyTokens(); return false; ">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input id="token-amount" 
-                                       type="number" class="form-control input-lg"
-                                       value="1" min="1", pattern="[0-9]">
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary btn-lg">Buy Tokens</button>
-                                </span>
-                            </div>
-                        </div>
-                    </form>                      
-                    <br/>
-                    <div class="progress">
-                        <div id="progressBar"
-                             class="progress-bar progress-bar-striped active"
-                             aria-valuemin="0" aria-valuemax="100">                             
-                        </div>
-                    </div>
-                    <p><span id="tokens-sold"></span> Tokens were sold of <span id="token-supply"></span></p>
-                    <hr/>
-                    <p>Login with account <b><span id="user-account-address"></b></span></p>
-                </div>
+        <!-- Page Content -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <h1 class="mt-5">Welcome to the CustomERC20Token ICO</h1>
+              <span class="lead">Made possible by the <a href="https://eips.ethereum.org/EIPS/eip-20" target="_blank">ERC20 Standard</a>.</p>              
             </div>
-        </div>
-          
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+          </div>
+       
+          <br/>
+          <hr/>
+          <br/>
+
+            <!-- Loading screen -->           
+            <div class="col-lg-12 text-center">
+              <div class="text-center alert alert-success" id="loading-screen">
+                  <p class="text-center" id="loadingText">Loading...</p>
+              </div>
+           </div>
+
+            <!-- Error screen -->
+            <div class="col-lg-12 text-center">
+              <div class="text-center alert alert-warning" id="error-screen" style="display: none;">
+                  <p><strong>Error!</strong> <span id="error-screen-message"></span></p>
+                  <br/>
+                  <button type="button" class="btn" onclick="App.init();">Reload page?</button>
+                  <br/>
+              </div>
+           </div>
+           
+            <!-- Page Content -->
+            <div class="col-lg-12 text-center">
+              <div id="page-content" class="text-center" style="display: none;">            
+                <span> The current Token Price is <b><span id="token-price"></span></b> Ether.</span>                
+                  <form role="form" onSubmit="App.buyTokens(); return false; ">
+                   <div class="form-group">
+                     <div class="input-group">
+                      <input id="token-amount" 
+                             type="number" class="form-control input-lg"
+                             value="1" min="1", pattern="[0-9]">
+                      <button type="submit" class="btn btn-warning">Buy Tokens now!</button>
+                     </div>
+                    </div>
+                  </form>    
+                  <br/>    
+                  <div class="progress" style="height: 25px;">
+                    <div id="progressBar" style="width: 25%;" class="bg-info active progress-bar-striped progress-bar-animated" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>              
+                  <span><span id="tokens-sold"></span> Tokens of <span id="token-supply"></span> were already sold</span>
+              </div>
+             </div>
+            </div>
+                  
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Blockchain related dependencies -->
         <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>

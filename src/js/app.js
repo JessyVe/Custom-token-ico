@@ -92,7 +92,6 @@ App = {
         web3.eth.getCoinbase(function(err, account){
         if(err === null){
             App.userAccountAddress = account;
-            document.getElementById('user-account-address').textContent = App.userAccountAddress;
             } else {
                 console.log(error);
                 App.showError("An error occrued while querying the user account. Auto-Login failed!");
@@ -165,9 +164,7 @@ App = {
     }    
 }
 
-$(function() {
-    $(window).load(function() {
+$(window).on('load', function () {
         window.ethereum.enable();
         App.init();
     });
-});
