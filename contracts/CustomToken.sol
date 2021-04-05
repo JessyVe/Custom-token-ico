@@ -3,7 +3,7 @@ pragma solidity ^0.5.16;
 import "./IERC20.sol";
 
 contract CustomToken is IERC20 {
-    // OPTINAL properties
+    // OPTIONAL properties
     string public name = "CustomToken";
     string public symbol = "CT";
 
@@ -58,7 +58,7 @@ contract CustomToken is IERC20 {
         return true;
     }
 
-    /// Handles the delegate transfer of the approved amount.
+    /// Handles the delegated transfer of the approved amount.
     function transferFrom(
         address _from,
         address _to,
